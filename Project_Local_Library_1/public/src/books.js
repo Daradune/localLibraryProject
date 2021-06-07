@@ -20,7 +20,6 @@ function partitionBooksByBorrowedStatus(books) {
     }
   }
   result.push(booksOut, booksIn)
-  console.log(result)
   return result
 }
 

@@ -38,8 +38,6 @@ function getBooksPossessedByAccount(account, books, authors) {
   //return an array with all the books in it
   return result;
 }
-//console.log(account.id)
-    //console.log(books[bookCheck].borrows[0].id);
 module.exports = {
   findAccountById,
   sortAccountsByLastName,

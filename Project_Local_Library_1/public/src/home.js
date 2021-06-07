@@ -8,27 +8,35 @@ function getTotalAccountsCount(accounts) {
 }
 
 function getBooksBorrowedCount(books) {
-  let acc = 0;
-  for (let bookCounter in books){
-    if (books[bookCounter].borrows[0].returned === false){
-      acc ++;
+  console.log(books[0].borrows[0].returned)
+  let result = books.filter((bookCheck) => bookCheck.borrows[0].returned === false)
+  return result.length;
+}
+
+function _sortByValues(obj) {
+  const keys = Object.keys(obj);
+  return keys.sort((keyA, keyB) => {
+    if (obj[keyA] > obj[keyB]) {
+      return -1;
+    } else if (obj[keyA] > obj[keyB]) {
+      return 1;
+    } else {
+      return 0;
     }
-  }
-  return acc;
+  });
 }
 
 function getMostCommonGenres(books) {
-  let booksByGenre = [];
-  for (let bookSorter of books){
-    let genre = booksByGenre.find((genreCheck) => genreCheck.name === bookSorter.genre);
-    if (genre){
-      genre.count ++;
-    }else{
-      booksByGenre.push({name:bookSorter.genre, count:1});
+  const count = books.reduce((acc, { genre }) => {
+    if (acc[genre]) {
+      acc[genre] += 1;
+    } else {
+      acc[genre] = 1;
     }
-  }
-  booksByGenre.sort((genre1,genre2) => genre2.count - genre1.count);
-  return booksByGenre.slice(0,5);
+    return acc;
+  }, {});
+  const sorted = _sortByValues(count);
+  return sorted.map((name) => ({ name, count: count[name] })).slice(0, 5);
 }
 
 function getMostPopularBooks(books) {
